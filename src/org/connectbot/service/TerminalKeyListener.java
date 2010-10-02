@@ -143,6 +143,14 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					}
 				}
 
+				// for dynabook AZ: TAB
+				if (keyCode == KeyEvent.KEYCODE_TAB
+					&& (metaState & META_TAB) != 0) {
+					metaState &= ~(META_TAB | META_TRANSIENT);
+					bridge.transport.write(0x09);
+					return true;
+				}
+
 				return false;
 			}
 
@@ -272,6 +280,13 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 						return true;
 					}
 				}
+
+				switch (keyCode) {
+					// for dynabook AZ: TAB
+					case KeyEvent.KEYCODE_TAB:
+						metaState |= META_TAB;
+						return true;
+				}
 			}
 
 			// look for special chars
@@ -384,6 +399,19 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 				bridge.redraw();
 
 				return true;
+
+			// for dynabook AZ: CTRL
+			case 93:
+				if ((metaState & META_CTRL_ON) != 0) {
+					sendEscape();
+					metaState &= ~META_CTRL_ON;
+				} else
+					metaPress(META_CTRL_ON);
+
+				bridge.redraw();
+
+				return true;
+
 			}
 
 		} catch (IOException e) {
