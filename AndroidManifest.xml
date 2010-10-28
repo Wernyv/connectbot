@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="org.connectbot"
 	android:versionCode="322"
-	android:installLocation="auto" android:versionName="1.7.0-AZ20101002">
+	android:installLocation="auto" android:versionName="1.7.0-AZ20101028">
 
 	<application
 		android:icon="@drawable/icon"

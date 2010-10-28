@@ -213,8 +213,10 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 				}
 
 				// handle pressing f-keys
+				// TODO update manual? (changed to ALT key)
 				if ((hardKeyboard && !hardKeyboardHidden)
-						&& (curMetaState & KeyEvent.META_SHIFT_ON) != 0
+//						&& (curMetaState & KeyEvent.META_SHIFT_ON) != 0
+						&& (curMetaState & KeyEvent.META_ALT_ON) != 0
 						&& sendFunctionKey(keyCode))
 					return true;
 
