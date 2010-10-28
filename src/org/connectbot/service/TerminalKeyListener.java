@@ -212,6 +212,7 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 						key = 0x7F;
 				}
 
+/*
 				// handle pressing f-keys
 				// TODO update manual? (changed to ALT key)
 				if ((hardKeyboard && !hardKeyboardHidden)
@@ -219,7 +220,7 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 						&& (curMetaState & KeyEvent.META_ALT_ON) != 0
 						&& sendFunctionKey(keyCode))
 					return true;
-
+*/
 				if (key < 0x80)
 					bridge.transport.write(key);
 				else
