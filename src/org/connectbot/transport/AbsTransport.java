@@ -251,4 +251,11 @@ public abstract class AbsTransport {
 	 * @return
 	 */
 	public abstract boolean usesNetwork();
+
+	/**
+	 * return connection type is local
+	 */
+	public boolean isLocal() {
+		return false;
+	}
 }

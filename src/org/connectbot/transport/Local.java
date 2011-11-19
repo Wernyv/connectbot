@@ -216,4 +216,12 @@ public class Local extends AbsTransport {
 	public boolean usesNetwork() {
 		return false;
 	}
+
+	/* (non-Javadoc)
+	 * @see org.connectbot.transport.AbsTransport#isLocal()
+	 */
+	@Override
+	public boolean isLocal() {
+		return true;
+	}
 }

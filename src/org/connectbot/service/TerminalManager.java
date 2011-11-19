@@ -26,9 +26,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Map.Entry;
 
 import org.connectbot.R;
 import org.connectbot.bean.HostBean;
@@ -203,6 +203,12 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 	 * Disconnect all currently connected bridges.
 	 */
 	private void disconnectAll(final boolean immediate) {
+		disconnectAll(immediate, false);
+	}
+	/**
+	 * Disconnect all currently connected bridges.
+	 */
+	private void disconnectAll(final boolean immediate, final boolean keeplocal) {
 		TerminalBridge[] tmpBridges = null;
 
 		synchronized (bridges) {
@@ -213,8 +219,10 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 
 		if (tmpBridges != null) {
 			// disconnect and dispose of any existing bridges
-			for (int i = 0; i < tmpBridges.length; i++)
-				tmpBridges[i].dispatchDisconnect(immediate);
+			for (int i = 0; i < tmpBridges.length; i++) {
+				if (!keeplocal || !tmpBridges[i].transport.isLocal())
+					tmpBridges[i].dispatchDisconnect(immediate);
+			}
 		}
 	}
 
@@ -660,7 +668,7 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 		final Thread t = new Thread() {
 			@Override
 			public void run() {
-				disconnectAll(false);
+				disconnectAll(false, true);
 			}
 		};
 		t.setName("Disconnector");
